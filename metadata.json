@@ -1,0 +1,6 @@
+{
+  "name": "Fixker.pk",
+  "description": "Pakistan's Trusted Network of Skilled Professionals. Connect with vetted local electricians, plumbers, carpenters, and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
