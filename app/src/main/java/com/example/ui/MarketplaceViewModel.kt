@@ -50,6 +50,15 @@ class MarketplaceViewModel(application: Application) : AndroidViewModel(applicat
     private val _custDescription = MutableStateFlow("")
     val custDescription = _custDescription.asStateFlow()
 
+    private val _custLatitude = MutableStateFlow<Double?>(null)
+    val custLatitude = _custLatitude.asStateFlow()
+
+    private val _custLongitude = MutableStateFlow<Double?>(null)
+    val custLongitude = _custLongitude.asStateFlow()
+
+    private val _custMapAddress = MutableStateFlow<String?>(null)
+    val custMapAddress = _custMapAddress.asStateFlow()
+
     // Form states for Professional Registration
     private val _proName = MutableStateFlow("")
     val proName = _proName.asStateFlow()
@@ -101,6 +110,16 @@ class MarketplaceViewModel(application: Application) : AndroidViewModel(applicat
     fun updateCustArea(value: String) { _custArea.value = value }
     fun updateCustService(value: String) { _custService.value = value }
     fun updateCustDescription(value: String) { _custDescription.value = value }
+    fun updateCustLocation(lat: Double, lng: Double, address: String?) {
+        _custLatitude.value = lat
+        _custLongitude.value = lng
+        _custMapAddress.value = address
+    }
+    fun clearCustLocation() {
+        _custLatitude.value = null
+        _custLongitude.value = null
+        _custMapAddress.value = null
+    }
 
     // Update Professional Form
     fun updateProName(value: String) { _proName.value = value }
@@ -137,7 +156,10 @@ class MarketplaceViewModel(application: Application) : AndroidViewModel(applicat
                 city = city,
                 area = area,
                 requiredService = service,
-                description = description
+                description = description,
+                latitude = _custLatitude.value,
+                longitude = _custLongitude.value,
+                mapAddress = _custMapAddress.value
             )
             val generatedId = repository.insertRequest(request)
             val savedRequest = request.copy(id = generatedId)
@@ -147,6 +169,9 @@ class MarketplaceViewModel(application: Application) : AndroidViewModel(applicat
             _custMobile.value = ""
             _custArea.value = ""
             _custDescription.value = ""
+            _custLatitude.value = null
+            _custLongitude.value = null
+            _custMapAddress.value = null
             
             _uiEvent.emit(UiEvent.RequestSuccess(savedRequest))
             onSuccess(savedRequest)

@@ -14,7 +14,10 @@ data class ServiceRequest(
     val requiredService: String,
     val description: String,
     val timestamp: Long = System.currentTimeMillis(),
-    val status: String = "Pending Match" // "Pending Match", "Connected", "Done"
+    val status: String = "Pending Match", // "Pending Match", "Connected", "Done"
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    val mapAddress: String? = null
 )
 
 @Entity(tableName = "professionals")
